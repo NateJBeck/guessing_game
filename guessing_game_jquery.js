@@ -24,20 +24,18 @@ var dogYes = function() {
     $("#counter").text("Correct Answers: " + correctAnswers);
     nextImage();
   } else {
-    //$("#result").text("No");
     nextImage();
   }
   //get a result object HTML page, calls .text method to change the text
   //("#result").text("Yes");
+  //$("#result").text("No");
 };
 
 var catYes = function() {
   if ( images[index].type === "cat" ){
-   // $("#result").text("Yes");
     correctAnswers++;
     nextImage();
   } else if ( images[index].type === "dog" ){
-   // $("#result").text("No");
     nextImage();
   }
 };
