@@ -7,12 +7,18 @@ var images = [
 
 var index = 0;
 var correctAnswers = 0;
+var totalAnswers = 0;
 
 $(function(){
   populateFirstImage();
   $("#dog").click(dogYes);
   $("#cat").click(catYes);
 });
+
+var displayAnswers = function() {
+    $("#counter").text("Correct Answers: " + correctAnswers);
+    $("#totalanswer").text("Attempts: " + totalAnswers);
+}
 
 var populateFirstImage = function() {
   $("#image").attr("src", images[index].url);
@@ -21,9 +27,13 @@ var populateFirstImage = function() {
 var dogYes = function() {
   if ( images[index].type === "dog" ){
     correctAnswers++;
-    $("#counter").text("Correct Answers: " + correctAnswers);
+    totalAnswers++;
+    
+    displayAnswers();
     nextImage();
   } else {
+    displayAnswers();
+    totalAnswers++;
     nextImage();
   }
   //get a result object HTML page, calls .text method to change the text
@@ -34,16 +44,26 @@ var dogYes = function() {
 var catYes = function() {
   if ( images[index].type === "cat" ){
     correctAnswers++;
-    $("#counter").text("Correct Answers: " + correctAnswers);
+    totalAnswers++;
+
+    displayAnswers();
     nextImage();
+
   } else if ( images[index].type === "dog" ){
+    totalAnswers++;
+
+    displayAnswers();
     nextImage();
   }
 };
 
 var nextImage = function() {
-  if( (index+1) < images.length ){
+  if(index < (images.length-1) ){
     index++;
     $("#image").attr("src", images[index].url);
+  } else {
+    index = 0;
+    $("#image").attr("src", images[index].url);
+    displayAnswers();
   }
 };
